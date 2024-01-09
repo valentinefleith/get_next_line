@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:00:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/09 17:42:26 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:00:51 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,25 @@ ssize_t ft_read_and_stash(t_list **stash, int fd)
 	return byte_count;
 }
 
-void ft_stash_addback(t_list **stash, char *buffer, ssize_t byte_count)
+void ft_stashadd_back(t_list **stash, char *buffer, ssize_t byte_count)
 {
+	t_list *last;
+	t_list *new;
 
+	new = malloc(sizeof(t_list));
+	if (new == NULL)
+		return ;
+	new->content = ft_strdup(buffer);
+	if (new->content == NULL)
+		return ;
+	new->next = NULL;
+	if (!*stash)
+	{
+		*stash = last;
+		return;
+	}
+	last = ft_lstlast(*stash);
+	last->next = new;
 }
 
 int ft_stash_contains(t_list *stash, char c)

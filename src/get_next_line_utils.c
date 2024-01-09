@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:09:08 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/09 14:13:57 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:21:53 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 		*lst = new;
 		return ;
 	}
-	while (lst->next)
-		last = lst->next;
+	last = ft_lstlast(lst);
 	last->next = new;
 }

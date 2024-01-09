@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:00:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/09 17:21:34 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:23:24 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,17 @@ ssize_t ft_read_and_stash(t_list **stash, int fd)
 
 int ft_found_newline(t_list *stash)
 {
+	int i;
+
 	if (stash == NULL)
 		return (0);
 	current = ft_lstlast(stash);
-	int i = 0;
+	i = 0;
 	while(current->content[i])
 	{
 		if (current ->content[i] == '\n')
-			return 1;
+			return (1);
 		i++;
 	}
-	return 0;
+	return (0);
 }

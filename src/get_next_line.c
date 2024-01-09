@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:00:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/09 18:00:51 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:32:13 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,21 @@ void ft_stashadd_back(t_list **stash, char *buffer, ssize_t byte_count)
 {
 	t_list *last;
 	t_list *new;
+	int i;
 
 	new = malloc(sizeof(t_list));
 	if (new == NULL)
 		return ;
-	new->content = ft_strdup(buffer);
+	new->next = NULL;
+	new->content = malloc(1 + sizeof(char) * byte_count);
 	if (new->content == NULL)
 		return ;
-	new->next = NULL;
+	i = 0;
+	while (buffer[i])
+	{
+		new->content[i] = buffer[i];
+		i++;
+	}
 	if (!*stash)
 	{
 		*stash = last;

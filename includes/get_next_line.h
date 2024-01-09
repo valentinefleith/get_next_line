@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:02:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/09 17:40:47 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:31:17 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char *get_next_line(int fd);
 
 typedef struct s_list
 {
-	void *content;
+	char *content;
 	struct s_list *next;
 }
 	t_list;

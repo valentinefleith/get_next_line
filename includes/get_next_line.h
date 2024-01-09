@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:02:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/09 15:06:24 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:40:47 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ typedef struct s_list
 }
 	t_list;
 
-ssize_t ft_read_file(t_list **stash, int fd, int buffer_size);
-void ft_store_in_stash(t_list **stash, char *buffer, ssize_t byte_count);
+ssize_t ft_read_and_stash(t_list **stash, int fd);
+int ft_stash_contains(t_list *stash, char c);
+void ft_stash_addback(t_list *stash, char *buffer, ssize_t byte_count);
+
 
 #endif

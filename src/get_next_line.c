@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:00:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/09 17:23:24 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:42:26 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char *get_next_line(int fd)
 	byte_count = ft_read_and_stash(&stash, fd);
 	if (byte_count == -1 || stash == NULL)
 		return (NULL);
-
 	
 	return line;
 }
@@ -37,13 +36,23 @@ ssize_t ft_read_and_stash(t_list **stash, int fd)
 	buffer = malloc(1 + BUFFER_SIZE * sizeof(char));
 	if (!buffer)
 		return (-1);
-	byte_count = read(fd, buffer, buffer_size);
-	buffer[byte_count] = '\0';
-	ft_store_in_stash(stash, buffer, byte_count);
+	byte_count = 0;
+	while (!ft_stash_contains(*stash, '\n') && byte_count == BUFFER_SIZE)
+	{
+		byte_count = read(fd, buffer, BUFFER_SIZE);
+		buffer[byte_count] = '\0';
+		ft_stash_addback(stash, buffer, byte_count);
+	}
 	free(buffer);
+	return byte_count;
 }
 
-int ft_found_newline(t_list *stash)
+void ft_stash_addback(t_list **stash, char *buffer, ssize_t byte_count)
+{
+
+}
+
+int ft_stash_contains(t_list *stash, char c)
 {
 	int i;
 
@@ -53,7 +62,7 @@ int ft_found_newline(t_list *stash)
 	i = 0;
 	while(current->content[i])
 	{
-		if (current ->content[i] == '\n')
+		if (current ->content[i] == c)
 			return (1);
 		i++;
 	}

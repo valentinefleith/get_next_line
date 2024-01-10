@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:00:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/09 18:32:13 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/10 21:07:06 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,15 @@ char *get_next_line(int fd)
 	byte_count = ft_read_and_stash(&stash, fd);
 	if (byte_count == -1 || stash == NULL)
 		return (NULL);
-	
+	line = ft_extract_line(stash);
+	ft_clean_stash(&stash);
+	if (!line[0])
+	{
+		ft_free_stash(stash);
+		stash = NULL;
+		free(line);
+		return (NULL);
+	}
 	return line;
 }
 
@@ -33,12 +41,12 @@ ssize_t ft_read_and_stash(t_list **stash, int fd)
 	char *buffer;
 	ssize_t byte_count;
 
-	buffer = malloc(1 + BUFFER_SIZE * sizeof(char));
-	if (!buffer)
-		return (-1);
-	byte_count = 0;
 	while (!ft_stash_contains(*stash, '\n') && byte_count == BUFFER_SIZE)
 	{
+		buffer = malloc(1 + BUFFER_SIZE * sizeof(char));
+		if (!buffer)
+			return (-1);
+		byte_count = 0;
 		byte_count = read(fd, buffer, BUFFER_SIZE);
 		buffer[byte_count] = '\0';
 		ft_stash_addback(stash, buffer, byte_count);
@@ -66,6 +74,7 @@ void ft_stashadd_back(t_list **stash, char *buffer, ssize_t byte_count)
 		new->content[i] = buffer[i];
 		i++;
 	}
+	new_node->content[i] = '\0';
 	if (!*stash)
 	{
 		*stash = last;

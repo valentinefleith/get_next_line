@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:00:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/10 22:13:12 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/10 22:44:54 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char *get_next_line(int fd)
 	if (byte_count == -1 || stock == NULL)
 		return (NULL);
 	line = ft_get_line(stock);
-	ft_lstclear(&stock);
+	stock = ft_remove_line_from_stock(&stock);
 	if (!line || !*line)
 	{
 		ft_lstfree(stock);
@@ -33,6 +33,20 @@ char *get_next_line(int fd)
 		return (NULL);
 	}
 	return line;
+}
+
+t_list *ft_remove_line_from_stock(t_list **stock)
+{
+	t_list *last;
+	t_list *new_stock;
+	int i;
+	int j;
+
+	new_stock = malloc(sizeof(t_list));
+	if (!stock || !new_stock)
+		return;
+
+
 }
 
 ssize_t ft_read_and_stock(t_list **stock, int fd)
@@ -53,35 +67,6 @@ ssize_t ft_read_and_stock(t_list **stock, int fd)
 	}
 	free(buffer);
 	return byte_count;
-}
-
-void ft_lstadd_back_cpy(t_list **stock, char *buffer, ssize_t byte_count)
-{
-	t_list *last;
-	t_list *new;
-	int i;
-
-	new = malloc(sizeof(t_list));
-	if (new == NULL)
-		return ;
-	new->next = NULL;
-	new->content = malloc(1 + sizeof(char) * byte_count);
-	if (new->content == NULL)
-		return ;
-	i = 0;
-	while (buffer[i])
-	{
-		new->content[i] = buffer[i];
-		i++;
-	}
-	new->content[i] = '\0';
-	if (!*stock)
-	{
-		*stock = last;
-		return;
-	}
-	last = ft_lstlast(*stock);
-	last->next = new;
 }
 
 char *ft_get_line(t_list *stock)

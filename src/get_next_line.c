@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:00:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/10 21:28:53 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/10 22:13:12 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ char *get_next_line(int fd)
 	if (byte_count == -1 || stock == NULL)
 		return (NULL);
 	line = ft_get_line(stock);
-	ft_clean_stock(&stock);
-	if (!*line)
+	ft_lstclear(&stock);
+	if (!line || !*line)
 	{
-		ft_free_stock(stock);
+		ft_lstfree(stock);
 		stock = NULL;
 		free(line);
 		return (NULL);
@@ -85,4 +85,54 @@ void ft_lstadd_back_cpy(t_list **stock, char *buffer, ssize_t byte_count)
 }
 
 char *ft_get_line(t_list *stock)
+{
+	char *line;
+	int content_index;
+	int line_index;
+
+	if (stock == NULL)
+		return;
+	line = malloc(1 + sizeof(char) * ft_line_length(stock));
+	if (!line)
+		return NULL;
+	line_index = 0;
+	while(stock)
+	{
+		content_index = 0;
+		while(stock->content[content_index])
+		{
+			if (stock->content[content_index] == '\n')
+			{
+				line[line_index++] = '\n';
+			}
+			line[line_index++] = stock->content[content_index++];
+		}
+		stock = stock->next;
+	}
+	line[line_index] = '\0';
+}
+
+size_t ft_line_length(t_list *stock)
+{
+	int i;
+	size_t len;
+
+	len = 0;
+	while(stock != NULL)
+	{
+		i = 0;
+		while (stock->content[i])
+		{
+			if (stock->content[i] == '\n')
+			{
+				len++;
+				break ;
+			}
+			len++;
+			i++;
+		}
+		stock = stock->next;
+	}
+	return len;
+}
 

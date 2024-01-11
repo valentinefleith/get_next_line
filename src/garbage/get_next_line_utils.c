@@ -5,76 +5,65 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/11 18:54:45 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/11 20:38:56 by vafleith         ###   ########.fr       */
+/*   Created: 2024/01/09 14:09:08 by vafleith          #+#    #+#             */
+/*   Updated: 2024/01/11 17:01:20 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
 
-//void ft_lstadd_back(t_list **lst, t_list *new_node)
-//{
-//	t_list *last;
-//
-//	if (!lst)
-//		return ;
-//	if (!*lst)
-//	{
-//		*lst = new_node;
-//		return ;
-//	}
-//	last = ft_lstlast(*lst);
-//	last->next = new_node;
-//}
-//
 
-size_t ft_line_length(t_list *lst)
+t_list *ft_lstlast(t_list *lst)
 {
-	size_t len;
-
-	len = 0;
-	while (lst)
-	{
-		len++;
-		if (lst->content == '\n')
-			break;
+	while(lst && lst->next)
 		lst = lst->next;
+	return (lst);
+}
+
+void ft_lstadd_back_cpy(t_list **stock, char *buffer, ssize_t byte_count)
+{
+	t_list *last;
+	t_list *new;
+	int i;
+
+	new = malloc(sizeof(t_list));
+	if (new == NULL)
+		return ;
+	new->next = NULL;
+	new->content = malloc(1 + sizeof(char) * byte_count);
+	if (new->content == NULL)
+		return ;
+	i = 0;
+	while (buffer[i])
+	{
+		new->content[i] = buffer[i];
+		i++;
 	}
-	return len;
+	new->content[i] = '\0';
+	if (!*stock)
+	{
+		*stock = new;
+		return;
+	}
+	last = ft_lstlast(*stock);
+	last->next = new;
 }
 
-
-void ft_lstadd_front(t_list **lst, t_list *new_node)
-{
-	new_node->next = *lst;
-	*lst = new_node;
-}
-
-t_list *ft_lstnew(char content)
-{
-	t_list *node;
-
-	node = malloc(sizeof(t_list));
-	if (node == NULL)
-		return (node);
-	node->content = content;
-	node->next = NULL;
-	return (node);
-}
 
 int ft_lst_contains(t_list *lst, char c)
 {
 	int i;
+	t_list *current;
 
 	if (lst == NULL)
 		return (0);
+	current = ft_lstlast(lst);
 	i = 0;
-	while(lst->content)
+	while(current->content[i])
 	{
-		if (lst->content == c)
+		if (current->content[i] == c)
 			return (1);
 		i++;
-		lst = lst->next;
 	}
 	return (0);
 }
@@ -86,8 +75,21 @@ void ft_lstfree(t_list **lst)
 	while(*lst)
 	{
 		next = (*lst)->next;
+		free((*lst)->content);
 		free(*lst);
 		*lst = next;
 	}
 	*lst = NULL;
+}
+
+size_t ft_strlen(char *str)
+{
+	size_t i;
+
+	i = 0;
+	while (str[i])
+	{
+		i++;
+	}
+	return i;
 }

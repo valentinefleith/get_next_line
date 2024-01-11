@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:02:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/11 20:27:53 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/12 00:50:29 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_list
 	t_list;
 
 ssize_t ft_read_and_stock(t_list **stock, int fd);
-char *ft_get_line_and_remove_from_stock(t_list **stock);
+char *ft_extract_line(t_list **stock);
 t_list *ft_remove_line_from_stock(t_list *stock);
 
 size_t ft_line_length(t_list *stock);

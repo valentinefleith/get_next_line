@@ -6,12 +6,23 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:15:48 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/12 00:27:03 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/12 00:50:56 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
 #include <stdio.h>
+
+void ft_lstprint(t_list* lst)
+{
+    while (lst)
+    {
+        printf("%c", lst->content);
+        lst = lst->next;
+    }
+    printf("\n");
+}
+
 
 char	*get_next_line(int fd)
 {
@@ -19,17 +30,17 @@ char	*get_next_line(int fd)
 	char			*line;
 	ssize_t			byte_count;
 
-	stock = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
 	byte_count = BUFFER_SIZE;
+	ft_lstprint(stock);
 	while (!ft_lst_contains(stock, '\n') && byte_count == BUFFER_SIZE)
 	{
 		byte_count = ft_read_and_stock(&stock, fd);
 		if (byte_count == -1 || stock == NULL)
 			return (NULL);
 	}
-	line = ft_get_line_and_remove_from_stock(&stock);
+	line = ft_extract_line(&stock);
 	if (!line || !*line)
 	{
 		ft_lstfree(&stock);
@@ -39,6 +50,8 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
+
+
 
 ssize_t	ft_read_and_stock(t_list **stock, int fd)
 {
@@ -61,7 +74,7 @@ ssize_t	ft_read_and_stock(t_list **stock, int fd)
 	return (byte_count);
 }
 
-char	*ft_get_line_and_remove_from_stock(t_list **stock)
+char	*ft_extract_line(t_list **stock)
 {
 	char	*line;
 	ssize_t	i;

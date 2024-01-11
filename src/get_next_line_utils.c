@@ -6,49 +6,43 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:54:45 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/11 21:05:19 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/12 00:27:04 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
 
-//void ft_lstadd_back(t_list **lst, t_list *new_node)
-//{
-//	t_list *last;
-//
-//	if (!lst)
-//		return ;
-//	if (!*lst)
-//	{
-//		*lst = new_node;
-//		return ;
-//	}
-//	last = ft_lstlast(*lst);
-//	last->next = new_node;
-//}
-//
-
-size_t ft_line_length(t_list *lst)
+t_list *ft_lstlast(t_list *lst)
 {
-	size_t len;
-
-	len = 0;
-	while (lst)
+	while (lst->next)
 	{
-		len++;
-		if (lst->content == '\n')
-			break;
 		lst = lst->next;
 	}
-	return len;
+	return lst;
 }
 
-
-void ft_lstadd_front(t_list **lst, t_list *new_node)
+void ft_lstadd_back(t_list **lst, t_list *new_node)
 {
-	new_node->next = *lst;
-	*lst = new_node;
+	t_list *last;
+
+	if (!lst)
+		return ;
+	if (!*lst)
+	{
+		*lst = new_node;
+		return ;
+	}
+	last = ft_lstlast(*lst);
+	last->next = new_node;
 }
+
+
+
+//void ft_lstadd_front(t_list **lst, t_list *new_node)
+//{
+//	new_node->next = *lst;
+//	*lst = new_node;
+//}
 
 t_list *ft_lstnew(char content)
 {

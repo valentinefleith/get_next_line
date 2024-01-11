@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:15:48 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/11 20:43:41 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/12 00:27:03 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char *get_next_line(int fd)
 	byte_count = BUFFER_SIZE;
 	while (!ft_lst_contains(stock, '\n') && byte_count == BUFFER_SIZE)
 	{
-		printf("je suis ici");
 		byte_count = ft_read_and_stock(&stock, fd);
 		if (byte_count == -1 || stock == NULL)
 			return (NULL);
@@ -52,11 +51,10 @@ ssize_t ft_read_and_stock(t_list **stock, int fd)
 	byte_count = read(fd, buffer, BUFFER_SIZE);
 	buffer[byte_count] = '\0';
 	i = 0;
-	i = byte_count - 1;
-	while (i >= 0)
+	while (i < byte_count)
 	{
-		ft_lstadd_front(stock, ft_lstnew(buffer[i]));
-		i--;
+		ft_lstadd_back(stock, ft_lstnew(buffer[i]));
+		i++;
 	}
 	free(buffer);
 	return (byte_count);
@@ -85,6 +83,22 @@ char *ft_get_line_and_remove_from_stock(t_list **stock)
 		*stock = next;
 		i++;
 	}
-	line[i] = '\0';
+	line[i++] = '\0';
 	return line;
+}
+
+
+size_t ft_line_length(t_list *lst)
+{
+	size_t len;
+
+	len = 0;
+	while (lst)
+	{
+		len++;
+		if (lst->content == '\n')
+			break;
+		lst = lst->next;
+	}
+	return len;
 }

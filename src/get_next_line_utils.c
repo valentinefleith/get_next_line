@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:09:08 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/11 13:54:27 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:56:54 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void ft_lstadd_back_cpy(t_list **stock, char *buffer, ssize_t byte_count)
 	new->content[i] = '\0';
 	if (!*stock)
 	{
-		last = *stock;
+		*stock = new;
 		return;
 	}
 	last = ft_lstlast(*stock);

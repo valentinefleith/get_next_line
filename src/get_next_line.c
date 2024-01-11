@@ -6,23 +6,27 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:00:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/11 13:55:23 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:48:26 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
-
+#include <stdio.h>
 char *get_next_line(int fd)
 {
 	static t_list *stock = NULL;
 	char *line;
-	int byte_count;
+	ssize_t byte_count;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
-	byte_count = ft_read_and_stock(&stock, fd);
-	if (byte_count == -1 || stock == NULL)
-		return (NULL);
+	byte_count = BUFFER_SIZE;
+	while (!ft_lst_contains(stock, '\n') && byte_count == BUFFER_SIZE)
+	{
+		byte_count = ft_read_and_stock(&stock, fd);
+		if (byte_count == -1 || stock == NULL)
+			return (NULL);
+	}
 	line = ft_get_line(stock);
 	stock = ft_remove_line_from_stock(stock);
 	if (!line || !*line)
@@ -33,6 +37,23 @@ char *get_next_line(int fd)
 		return (NULL);
 	}
 	return line;
+}
+
+ssize_t ft_read_and_stock(t_list **stock, int fd)
+{
+	char *buffer;
+	ssize_t byte_count;
+
+	buffer = malloc(1 + BUFFER_SIZE * sizeof(char));
+	if (!buffer)
+		return (-1);
+	byte_count = read(fd, buffer, BUFFER_SIZE);
+	buffer[byte_count] = '\0';
+	printf("%s\n", buffer);
+	printf("%i\n", ft_lst_contains(*stock, '\n'));
+	ft_lstadd_back_cpy(stock, buffer, byte_count);
+	free(buffer);
+	return byte_count;
 }
 
 t_list *ft_remove_line_from_stock(t_list *stock)
@@ -61,26 +82,6 @@ t_list *ft_remove_line_from_stock(t_list *stock)
 	new_stock->content[j] = '\0';
 	ft_lstfree(&stock);
 	return new_stock;
-}
-
-ssize_t ft_read_and_stock(t_list **stock, int fd)
-{
-	char *buffer;
-	ssize_t byte_count;
-
-	byte_count = BUFFER_SIZE;
-	while (!ft_lst_contains(*stock, '\n') && byte_count == BUFFER_SIZE)
-	{
-		buffer = malloc(1 + BUFFER_SIZE * sizeof(char));
-		if (!buffer)
-			return (-1);
-		byte_count = 0;
-		byte_count = read(fd, buffer, BUFFER_SIZE);
-		buffer[byte_count] = '\0';
-		ft_lstadd_back_cpy(stock, buffer, byte_count);
-	}
-	free(buffer);
-	return byte_count;
 }
 
 char *ft_get_line(t_list *stock)

@@ -13,12 +13,13 @@
 #include "../includes/get_next_line.h"
 #include <stdio.h>
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	static t_list *stock = NULL;
-	char *line;
-	ssize_t byte_count;
+	static t_list	*stock;
+	char			*line;
+	ssize_t			byte_count;
 
+	stock = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
 	byte_count = BUFFER_SIZE;
@@ -36,14 +37,14 @@ char *get_next_line(int fd)
 		free(line);
 		return (NULL);
 	}
-	return line;
+	return (line);
 }
 
-ssize_t ft_read_and_stock(t_list **stock, int fd)
+ssize_t	ft_read_and_stock(t_list **stock, int fd)
 {
-	char *buffer;
-	ssize_t byte_count;
-	ssize_t i;
+	char	*buffer;
+	ssize_t	byte_count;
+	ssize_t	i;
 
 	buffer = malloc(1 + BUFFER_SIZE * sizeof(char));
 	if (!buffer)
@@ -60,45 +61,43 @@ ssize_t ft_read_and_stock(t_list **stock, int fd)
 	return (byte_count);
 }
 
-
-char *ft_get_line_and_remove_from_stock(t_list **stock)
+char	*ft_get_line_and_remove_from_stock(t_list **stock)
 {
-	char *line;
-	ssize_t i;
-	t_list *next;
-	
+	char	*line;
+	ssize_t	i;
+	t_list	*next;
+
 	if (stock == NULL)
-		return NULL;
+		return (NULL);
 	line = malloc(1 + ft_line_length(*stock) * sizeof(char));
 	if (line == NULL)
-		return NULL;
+		return (NULL);
 	i = 0;
-	while(*stock)
+	while (*stock)
 	{
 		line[i] = (*stock)->content;
 		if (line[i] == '\n')
-			break;
+			break ;
 		next = (*stock)->next;
 		free(*stock);
 		*stock = next;
 		i++;
 	}
 	line[i++] = '\0';
-	return line;
+	return (line);
 }
 
-
-size_t ft_line_length(t_list *lst)
+size_t	ft_line_length(t_list *lst)
 {
-	size_t len;
+	size_t	len;
 
 	len = 0;
 	while (lst)
 	{
 		len++;
 		if (lst->content == '\n')
-			break;
+			break ;
 		lst = lst->next;
 	}
-	return len;
+	return (len);
 }

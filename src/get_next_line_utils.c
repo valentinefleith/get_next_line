@@ -12,18 +12,18 @@
 
 #include "../includes/get_next_line.h"
 
-t_list *ft_lstlast(t_list *lst)
+t_list	*ft_lstlast(t_list *lst)
 {
 	while (lst->next)
 	{
 		lst = lst->next;
 	}
-	return lst;
+	return (lst);
 }
 
-void ft_lstadd_back(t_list **lst, t_list *new_node)
+void	ft_lstadd_back(t_list **lst, t_list *new_node)
 {
-	t_list *last;
+	t_list	*last;
 
 	if (!lst)
 		return ;
@@ -36,17 +36,15 @@ void ft_lstadd_back(t_list **lst, t_list *new_node)
 	last->next = new_node;
 }
 
-
-
-//void ft_lstadd_front(t_list **lst, t_list *new_node)
+// void ft_lstadd_front(t_list **lst, t_list *new_node)
 //{
 //	new_node->next = *lst;
 //	*lst = new_node;
 //}
 
-t_list *ft_lstnew(char content)
+t_list	*ft_lstnew(char content)
 {
-	t_list *node;
+	t_list	*node;
 
 	node = malloc(sizeof(t_list));
 	if (node == NULL)
@@ -56,14 +54,14 @@ t_list *ft_lstnew(char content)
 	return (node);
 }
 
-int ft_lst_contains(t_list *lst, char c)
+int	ft_lst_contains(t_list *lst, char c)
 {
-	int i;
+	int	i;
 
 	if (lst == NULL)
 		return (0);
 	i = 0;
-	while(lst)
+	while (lst)
 	{
 		if (lst->content == c)
 			return (1);
@@ -73,11 +71,11 @@ int ft_lst_contains(t_list *lst, char c)
 	return (0);
 }
 
-void ft_lstfree(t_list **lst)
+void	ft_lstfree(t_list **lst)
 {
-	t_list *next;
+	t_list	*next;
 
-	while(*lst)
+	while (*lst)
 	{
 		next = (*lst)->next;
 		free(*lst);

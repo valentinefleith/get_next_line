@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:00:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/11 13:54:57 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:55:23 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,4 @@ size_t ft_line_length(t_list *stock)
 		stock = stock->next;
 	}
 	return len;
-}
-
-#include <stdio.h>
-int main(void)
-{
-	
 }

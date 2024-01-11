@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:15:48 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/11 20:27:52 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/11 20:43:41 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ char *get_next_line(int fd)
 	byte_count = BUFFER_SIZE;
 	while (!ft_lst_contains(stock, '\n') && byte_count == BUFFER_SIZE)
 	{
+		printf("je suis ici");
 		byte_count = ft_read_and_stock(&stock, fd);
 		if (byte_count == -1 || stock == NULL)
 			return (NULL);
@@ -55,7 +56,7 @@ ssize_t ft_read_and_stock(t_list **stock, int fd)
 	while (i >= 0)
 	{
 		ft_lstadd_front(stock, ft_lstnew(buffer[i]));
-		i++;
+		i--;
 	}
 	free(buffer);
 	return (byte_count);

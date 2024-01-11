@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:54:45 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/11 20:38:56 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/11 21:05:19 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int ft_lst_contains(t_list *lst, char c)
 	if (lst == NULL)
 		return (0);
 	i = 0;
-	while(lst->content)
+	while(lst)
 	{
 		if (lst->content == c)
 			return (1);

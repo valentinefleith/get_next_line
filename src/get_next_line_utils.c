@@ -6,23 +6,12 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 14:09:08 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/10 22:44:54 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:38:31 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
 
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*node;
-
-	node = malloc(sizeof(t_list));
-	if (node == NULL)
-		return (node);
-	node->content = content;
-	node->next = NULL;
-	return (node);
-}
 
 t_list *ft_lstlast(t_list *lst)
 {
@@ -77,4 +66,18 @@ int ft_lst_contains(t_list *lst, char c)
 		i++;
 	}
 	return (0);
+}
+
+void ft_lstfree(t_list **lst)
+{
+	t_list *next;
+
+	while(*lst)
+	{
+		next = (*lst)->next;
+		free((*lst)->content);
+		free(*lst);
+		*lst = next;
+	}
+	*lst = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:00:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/10 22:44:54 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:31:01 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char *get_next_line(int fd)
 	if (byte_count == -1 || stock == NULL)
 		return (NULL);
 	line = ft_get_line(stock);
-	stock = ft_remove_line_from_stock(&stock);
+	stock = ft_remove_line_from_stock(stock);
 	if (!line || !*line)
 	{
 		ft_lstfree(stock);
@@ -35,7 +35,7 @@ char *get_next_line(int fd)
 	return line;
 }
 
-t_list *ft_remove_line_from_stock(t_list **stock)
+t_list *ft_remove_line_from_stock(t_list *stock)
 {
 	t_list *last;
 	t_list *new_stock;
@@ -44,9 +44,23 @@ t_list *ft_remove_line_from_stock(t_list **stock)
 
 	new_stock = malloc(sizeof(t_list));
 	if (!stock || !new_stock)
-		return;
-
-
+		return NULL;
+	new_stock->next = NULL;
+	last = ft_lstlast(stock);
+	i = 0;
+	while (last->content[i] && last->content[i] != '\n')
+		i++;
+	if (last->content && last->content[i] == '\n')
+		i++;
+	new_stock->content = malloc(1 + sizeof(char) * (ft_strlen(last->content) - i));
+	if (new_stock == NULL)
+		return NULL;
+	j = 0;
+	while (last->content[i])
+		new_stock->content[j++] = last->content[i++];
+	new_stock->content[j] = '\0';
+	free_stock(stock);
+	return new_stock;
 }
 
 ssize_t ft_read_and_stock(t_list **stock, int fd)

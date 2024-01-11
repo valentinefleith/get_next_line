@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:00:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/11 13:31:01 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:54:57 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char *get_next_line(int fd)
 	stock = ft_remove_line_from_stock(stock);
 	if (!line || !*line)
 	{
-		ft_lstfree(stock);
+		ft_lstfree(&stock);
 		stock = NULL;
 		free(line);
 		return (NULL);
@@ -59,7 +59,7 @@ t_list *ft_remove_line_from_stock(t_list *stock)
 	while (last->content[i])
 		new_stock->content[j++] = last->content[i++];
 	new_stock->content[j] = '\0';
-	free_stock(stock);
+	ft_lstfree(&stock);
 	return new_stock;
 }
 
@@ -69,7 +69,7 @@ ssize_t ft_read_and_stock(t_list **stock, int fd)
 	ssize_t byte_count;
 
 	byte_count = BUFFER_SIZE;
-	while (!ft_stock_contains(*stock, '\n') && byte_count == BUFFER_SIZE)
+	while (!ft_lst_contains(*stock, '\n') && byte_count == BUFFER_SIZE)
 	{
 		buffer = malloc(1 + BUFFER_SIZE * sizeof(char));
 		if (!buffer)
@@ -90,7 +90,7 @@ char *ft_get_line(t_list *stock)
 	int line_index;
 
 	if (stock == NULL)
-		return;
+		return NULL;
 	line = malloc(1 + sizeof(char) * ft_line_length(stock));
 	if (!line)
 		return NULL;
@@ -109,6 +109,7 @@ char *ft_get_line(t_list *stock)
 		stock = stock->next;
 	}
 	line[line_index] = '\0';
+	return line;
 }
 
 size_t ft_line_length(t_list *stock)
@@ -135,3 +136,8 @@ size_t ft_line_length(t_list *stock)
 	return len;
 }
 
+#include <stdio.h>
+int main(void)
+{
+	
+}

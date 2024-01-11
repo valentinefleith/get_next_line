@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:02:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/10 21:15:00 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:51:22 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@ typedef struct s_list
 }
 	t_list;
 
-ssize_t ft_read_and_stock(t_list **stash, int fd);
-int ft_stock_contains(t_list *stash, char c);
-void ft_stock_addback(t_list *stash, char *buffer, ssize_t byte_count);
+ssize_t ft_read_and_stock(t_list **stock, int fd);
+char *ft_get_line(t_list *stock);
+t_list *ft_remove_line_from_stock(t_list *stock);
+size_t ft_line_length(t_list *stock);
+t_list *ft_lstlast(t_list *lst);
+void ft_lstadd_back_cpy(t_list **stock, char *buffer, ssize_t byte_count);
+int ft_lst_contains(t_list *stash, char c);
+void ft_lstfree(t_list **lst);
+size_t ft_strlen(char *str);
 
 
 #endif

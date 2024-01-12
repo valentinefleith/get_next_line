@@ -13,16 +13,15 @@
 #include "../includes/get_next_line.h"
 #include <stdio.h>
 
-void ft_lstprint(t_list* lst)
+void	ft_lstprint(t_list *lst)
 {
-    while (lst)
-    {
-        printf("%c", lst->content);
-        lst = lst->next;
-    }
-    printf("\n");
+	while (lst)
+	{
+		printf("%c", lst->content);
+		lst = lst->next;
+	}
+	printf("\n");
 }
-
 
 char	*get_next_line(int fd)
 {
@@ -49,8 +48,6 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
-
-
 
 ssize_t	ft_read_and_stock(t_list **stock, int fd)
 {
@@ -87,7 +84,6 @@ char	*ft_extract_line(t_list **stock)
 	i = 0;
 	while (*stock)
 	{
-		
 		line[i] = (*stock)->content;
 		next = (*stock)->next;
 		free(*stock);

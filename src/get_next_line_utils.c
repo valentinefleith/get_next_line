@@ -12,7 +12,6 @@
 
 #include "../includes/get_next_line.h"
 
-
 t_list	*ft_lstnew(char content)
 {
 	t_list	*node;
@@ -24,7 +23,6 @@ t_list	*ft_lstnew(char content)
 	node->next = NULL;
 	return (node);
 }
-
 
 t_list	*ft_lstlast(t_list *lst)
 {

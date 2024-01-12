@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:15:48 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/13 00:00:55 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/13 00:05:05 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_next_line(int fd)
 	ssize_t			byte_count;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
-		return (NULL);
+		return (ft_lstfree(&stock), NULL);
 	byte_count = BUFFER_SIZE;
 	while (!ft_lst_contains(stock, '\n') && byte_count == BUFFER_SIZE)
 	{

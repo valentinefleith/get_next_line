@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 13:55:27 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/12 00:17:48 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/12 13:46:58 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main(void)
 	char *line;
 	int i = 1;
 
-	fd = open("texts/text1.txt", O_RDONLY);
+	fd = open("texts/big_line_with_nl", O_RDONLY);
 	//line = get_next_line(fd);
 	//printf("Line %i : %s\n", i, line);
 	while(1)

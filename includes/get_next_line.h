@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:02:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/12 23:21:57 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/12 23:29:50 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char				*ft_extract_line(t_list **stock);
 size_t				ft_line_length(const t_list *stock);
 
 t_list				*ft_lstnew(char content);
-t_list				*ft_lstlast(const t_list *lst);
+t_list				*ft_lstlast(t_list *lst);
 void				ft_lstadd_back(t_list **lst, t_list *new_node);
 int					ft_lst_contains(const t_list *lst, char c);
 void				ft_lstfree(t_list **lst);

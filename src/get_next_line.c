@@ -6,22 +6,11 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:15:48 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/12 13:40:08 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/12 18:32:56 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
-#include <stdio.h>
-
-void	ft_lstprint(t_list *lst)
-{
-	while (lst)
-	{
-		printf("%c", lst->content);
-		lst = lst->next;
-	}
-	printf("\n");
-}
 
 char	*get_next_line(int fd)
 {
@@ -96,7 +85,7 @@ char	*ft_extract_line(t_list **stock)
 	return (line);
 }
 
-size_t	ft_line_length(t_list *lst)
+size_t	ft_line_length(const t_list *lst)
 {
 	size_t	len;
 

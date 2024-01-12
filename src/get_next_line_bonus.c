@@ -6,26 +6,17 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:15:48 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/12 13:59:29 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/12 18:31:34 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/get_next_line.h"
-#include <stdio.h>
 
-void	ft_lstprint(t_list *lst)
-{
-	while (lst)
-	{
-		printf("%c", lst->content);
-		lst = lst->next;
-	}
-	printf("\n");
-}
+#define FD_HARDLIMIT 1048576
 
 char	*get_next_line(int fd)
 {
-	static t_list	*stock[1024];
+	static t_list	*stock[FD_HARDLIMIT];
 	char			*line;
 	ssize_t			byte_count;
 

@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:15:48 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/12 01:09:22 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/12 13:40:08 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ ssize_t	ft_read_and_stock(t_list **stock, int fd)
 	ssize_t	byte_count;
 	ssize_t	i;
 
-	buffer = malloc(1 + BUFFER_SIZE * sizeof(char));
+	buffer = malloc((1 + BUFFER_SIZE) * sizeof(char));
 	if (!buffer)
 		return (-1);
 	byte_count = read(fd, buffer, BUFFER_SIZE);
@@ -78,21 +78,20 @@ char	*ft_extract_line(t_list **stock)
 
 	if (stock == NULL)
 		return (NULL);
-	line = malloc(1 + ft_line_length(*stock) * sizeof(char));
+	line = malloc((1 + ft_line_length(*stock)) * sizeof(char));
 	if (line == NULL)
 		return (NULL);
 	i = 0;
 	while (*stock)
 	{
 		line[i] = (*stock)->content;
+		i++;
 		next = (*stock)->next;
 		free(*stock);
 		*stock = next;
-		if (line[i] == '\n')
+		if (line[i - 1] == '\n')
 			break ;
-		i++;
 	}
-	i++;
 	line[i] = '\0';
 	return (line);
 }

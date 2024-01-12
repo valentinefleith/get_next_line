@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 18:15:48 by vafleith          #+#    #+#             */
-/*   Updated: 2024/01/12 00:50:56 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/01/12 01:09:22 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
 	byte_count = BUFFER_SIZE;
-	ft_lstprint(stock);
 	while (!ft_lst_contains(stock, '\n') && byte_count == BUFFER_SIZE)
 	{
 		byte_count = ft_read_and_stock(&stock, fd);
@@ -88,15 +87,17 @@ char	*ft_extract_line(t_list **stock)
 	i = 0;
 	while (*stock)
 	{
+		
 		line[i] = (*stock)->content;
-		if (line[i] == '\n')
-			break ;
 		next = (*stock)->next;
 		free(*stock);
 		*stock = next;
+		if (line[i] == '\n')
+			break ;
 		i++;
 	}
-	line[i++] = '\0';
+	i++;
+	line[i] = '\0';
 	return (line);
 }
 
